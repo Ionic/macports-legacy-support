@@ -27,21 +27,19 @@
 /* Legacy implementation of clock_gettime */
 #if __MP_LEGACY_SUPPORT_GETTIME__
 
-#ifndef CLOCK_REALTIME
-/* These values are choosen to match use in macOS10.12+ */
-#define CLOCK_REALTIME             0
-#define CLOCK_MONOTONIC            6
-/* we do not implement these (yet). */
-/* #define CLOCK_MONOTONIC_RAW        4 */
-/* #define CLOCK_MONOTONIC_RAW_APPROX 5 */
-#endif
-
 /*
- * Define a type for the above CLOCK_* values; many OSs use 'enum' for
- * the values & then typedef the enum to 'clockid_t'; use 'int' for
- * easy compatibility.
+ * Define a type for the above CLOCK_* values
  */
-typedef int clockid_t;
+typedef enum {
+_CLOCK_REALTIME = 0,
+#ifndef CLOCK_REALTIME
+# define CLOCK_REALTIME _CLOCK_REALTIME
+#endif
+_CLOCK_MONOTONIC = 6
+#ifndef CLOCK_MONOTONIC
+# define CLOCK_MONOTONIC _CLOCK_MONOTONIC
+#endif
+} clockid_t;
 
 #ifdef __cplusplus
 extern "C" {
