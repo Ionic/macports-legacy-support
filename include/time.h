@@ -27,9 +27,8 @@
 /* Legacy implementation of clock_gettime */
 #if __MP_LEGACY_SUPPORT_GETTIME__
 
-/*
- * Define a type for the above CLOCK_* values
- */
+#ifndef __CLOCK_AVAILABILITY
+/* Define a type for the CLOCK_* values */
 typedef enum {
 _CLOCK_REALTIME = 0,
 #ifndef CLOCK_REALTIME
@@ -40,6 +39,7 @@ _CLOCK_MONOTONIC = 6
 # define CLOCK_MONOTONIC _CLOCK_MONOTONIC
 #endif
 } clockid_t;
+#endif /* __CLOCK_AVAILABILITY */
 
 #ifdef __cplusplus
 extern "C" {
